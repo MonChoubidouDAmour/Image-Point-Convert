@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from PIL import Image
 from PNGtoTXT import image_to_txt
 
@@ -41,5 +41,8 @@ def upload():
 
     return render_template('index.html', python_data=python_data, uploaded=True)
 
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory('static', filename)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
