@@ -20,3 +20,7 @@ This Python script allows you to convert images into ASCII art. It takes an imag
 1. Clone this repository to your local machine:
    ```bash
    git clone https://github.com/MonChoubidouDAmour/Image-Point-Convert.git
+2. Start the server (make sure to open the port 5000)
+   ```python
+    python server.py
+3. Connect to the server at `https://locahost:5000`
