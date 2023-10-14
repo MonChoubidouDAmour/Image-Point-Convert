@@ -1,0 +1,20 @@
+# Ignore common image formats
+*.png
+*.jpg
+*.jpeg
+
+# Ignore common document formats
+*.pdf
+
+# Ignore common archive formats
+*.zip
+*.tar
+*.gz
+
+# Ignore commonly generated files or directories
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info
+dist/
+build/

@@ -5,11 +5,6 @@ Convert images to ASCII art with Python! Uses a Flasks local server for the inte
 ## Table of Contents
 - [Introduction](#introduction)
 - [Usage](#usage)
-- [Options](#options)
-- [Example](#example)
-- [Sample Output](#sample-output)
-- [Credits](#credits)
-- [License](#license)
 
 ## Introduction
 
@@ -21,6 +16,6 @@ This Python script allows you to convert images into ASCII art. It takes an imag
    ```bash
    git clone https://github.com/MonChoubidouDAmour/Image-Point-Convert.git
 2. Start the server (make sure to open the port 5000)
-   ```python
+   ```bash
     python server.py
 3. Connect to the server at `https://locahost:5000`
