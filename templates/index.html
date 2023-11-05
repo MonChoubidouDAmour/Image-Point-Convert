@@ -2,35 +2,66 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    <title>Python and HTML Integration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <script src=" js/scripts.js" defer>
+    </script>
 </head>
 
 <body>
-    <h1>Hello from HTML</h1>
-    <div class="container">
+    <div class="section">
         <div class="container">
-            <pre>{{ python_data }}</pre>
+            <div class="intro-wrap">
+                <div class="name-text">Convert Image to ASCII Braille</div>
+                <div class="paragraph-light">UPLOAD IMAGE</div>
+                <form
+                    action="/upload?decimal_value={{ request.args.get('decimal_value') }}&integer_value={{ request.args.get('integer_value') }}&ratio={{ request.args.get('ratio') }}"
+                    method="post" enctype="multipart/form-data">
+                    <input type="file" name="image" required>
+                    <input type="range" name="decimal_value" min="0" max="2" step="0.01" value="1" required />
+                    <p class="output-detail">Width ratio:<output for="decimal_value">1</output></p>
+                    <input type="number" name="integer_value" placeholder="Enter an integer" value="50" required>
+                    <input type="range" name="ratio" min="0" max="1" step="0.01" value="0.5" required />
+                    <p class="output-detail">Sketching ratio:<output for="ratio">0.5</output></p>
+                    <br>
+                    <div class="form-center-item">
+                        <input type="submit" value="Upload">
+                    </div>
+                </form>
+            </div>
         </div>
-        {% if uploaded %}
-        <div class="container">
-            <h2>Uploaded Image</h2>
-            <img src="data:image/png;base64,{{ img_base64 }}" alt="Uploaded Image">
-        </div>
-        {% endif %}
     </div>
-    <h2>Upload an Image</h2>
-    <form action="/upload?decimal_value={{ request.args.get('decimal_value') }}&integer_value={{ request.args.get('integer_value') }}&ratio={{ request.args.get('ratio') }}" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" required>
-        <br>
-        <input type="range" name="decimal_value" min="0" max="2" step="0.01" value="{{ request.args.get('decimal_value', '1') }}" required />
-        <input type="number" name="integer_value" placeholder="Enter an integer" value="{{ request.args.get('integer_value', '') }}" required>
-        <br>
-        <br>
-        <input type="range" name="ratio" min="0" max="1" step="0.01" value="{{ request.args.get('ratio', '1') }}" required />
-        <input type="submit" value="Upload">
-    </form>
-    
+    <div class="section">
+
+        <div id="works-grid" class="w-layout-grid works-grid">
+            <div>
+                {% if uploaded %}
+                <div class="convertion-section-class">
+                    <img src="data:image/png;base64,{{ img_base64 }}" alt="Uploaded Image">
+                    <div class="paragraph-light">Uploaded Image</div>
+                </div>
+                {% endif %}
+            </div>
+            <div>
+                <div class="convertion-section-class bigger-section-class">
+                    <pre>{{ python_data }}</pre>
+                    <div class="paragraph-light">Converted Image</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-wrap">
+        <div>
+            <a href="https://brand.com/" target="_blank" class="footer-item">
+                <div class="paragraph-tiny">Brand Here</div>
+            </a>
+        </div>
+        <div class="footer-links">
+            <a href="https://www.facebook.com/" target="_blank" class="footer-item">Facebook</a>
+            <a href="https://twitter.com/" target="_blank" class="footer-item">Twitter</a>
+            <a href="https://www.instagram.com/" target="_blank" class="footer-item">Instagram</a>
+        </div>
+    </div>
 </body>
 
 </html>

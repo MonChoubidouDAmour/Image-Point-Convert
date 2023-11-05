@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+# coding: utf-8
 from PIL import Image, ImageOps
 from IPython.display import display
+import math
 
 def convert_image_to_array(image, width, height):
     image = image.resize((width, height))
@@ -13,19 +16,24 @@ def convert_image_to_array(image, width, height):
         if (i+1)%width == 0:
             index+=1
     return array_image
+
 def create_array_with_average(target_average, size):
     num_ones = int(size * target_average)
     num_zeros = size - num_ones
     array = '.' * num_ones + ' ' * num_zeros 
     return array
 def convert_array_to_dots(pixels, ratio, width, height):
-    ASCII_CHARS = create_array_with_average(ratio, 64)
-    segment_size = (256 // (len(ASCII_CHARS))) + 1
     dot_image = [''] * height
     for i, pixel_list in enumerate(pixels):
         for pixel in pixel_list:
-            dot_image[i]+= ASCII_CHARS[pixel // segment_size]
+            val = ' '
+            result = (pixel**9/ (255**9))
+            if result < ratio:
+                val = '.'
+            dot_image[i]+= val
     return dot_image
+
+
 def convert_2d(array_1d):
     """Convert a 1D array to 2D (array[x] => array[x][y])"""
     char_array = [[char for char in string.replace('\n', '')] for string in array_1d]
@@ -40,6 +48,8 @@ def fragment_array(array, w, h):
                 smaller.append(array[row + i][col:col + 2])
             smaller_arrays.append(smaller)
     return smaller_arrays
+
+
 def test_for_dots(char):
     if char == '.':
         return 1
@@ -72,16 +82,14 @@ def compress_dot_image(dot_image, width, height):
         if (idx+1) % (width/2) == 0 and idx > 0:
             final_string += '\n'
     return final_string
+
+
 def image_to_txt(image, width, height, ratio):
     pixels = convert_image_to_array(image, width, height)
     dot_image = convert_array_to_dots(pixels, ratio, width, height)
     final_string = compress_dot_image(dot_image, width, height)
     return final_string
 
-# image = Image.open('Images/stick.jpg')
-# height = 81
-# width = 1.5*height
-# height = int((height // 4) * 4)
-# width = int((width // 2) * 2)
-# print(image_to_txt(image, width, height, 0.37))
+
+
 

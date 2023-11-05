@@ -11,6 +11,8 @@
 *.tar
 *.gz
 
+/old
+
 # Ignore commonly generated files or directories
 __pycache__/
 *.pyc
